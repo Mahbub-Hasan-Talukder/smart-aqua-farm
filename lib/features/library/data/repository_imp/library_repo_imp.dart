@@ -27,10 +27,7 @@ class LibraryRepoImp implements LibraryRepository {
     String diseaseName,
   ) async {
     try {
-      print('dbg in repo imp $diseaseName');
-
       final res = await _libraryDataSource.fetchDiseaseDetails(diseaseName);
-      print('dbg in repo imp 1 $res');
       return Right(DisDetailsRepsonse.fromJson(res).toEntity());
     } catch (e) {
       return Left(e.toString());

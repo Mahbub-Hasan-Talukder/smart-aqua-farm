@@ -70,7 +70,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
       itemBuilder: (context, idx) {
         return InkWell(
           onTap: () {
-            print('dbg clicked on ${diseases[idx].name}');
             context.go(
               "${MyRoutes.library}/${MyRoutes.diseasesDetails}",
               extra: diseases[idx].name,

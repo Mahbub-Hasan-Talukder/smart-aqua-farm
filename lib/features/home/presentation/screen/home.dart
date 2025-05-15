@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:smart_aqua_farm/core/navigation/routes.dart';
 import '../../../../core/di/di.dart';
 import '../../../../core/widgets/alerts.dart';
 import '../../../../core/widgets/app_bar.dart';
@@ -132,7 +134,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _detectDiseases(String imagePath) async {
     try {
-      // TODO: Implement disease detection API call
       _detectionCubit.startDetection(imagePath);
     } catch (e) {
       _showError("Error detecting diseases: ${e.toString()}");
@@ -172,7 +173,10 @@ class _HomeScreenState extends State<HomeScreen> {
   GestureDetector _showResult(BuildContext context, DetectionSuccess state) {
     return GestureDetector(
       onTap: () {
-        //TODO: Implement navigation to details screen
+        context.go(
+          "${MyRoutes.library}/${MyRoutes.diseasesDetails}",
+          extra: state.className,
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
