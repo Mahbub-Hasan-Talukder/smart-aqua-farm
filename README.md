@@ -37,11 +37,11 @@ The app uses a trained **EfficientNet-B0** model to classify fish images into 7 
 
 ## 📸 Screenshots
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/bf97c33c-db5a-443a-a994-9ee6f0db0ff4" alt="Sign In Screen" width="200"/>
-  <img src="https://github.com/user-attachments/assets/34b9049a-2ff1-407d-9d7c-cc8fa6fb05e9" alt="Sign Up Screen" width="200"/>
-  <img src="https://github.com/user-attachments/assets/84f65d5e-7af8-4779-b699-e3553338bb96" alt="Home Screen" width="200"/>
-  <img src="https://github.com/user-attachments/assets/2faebf8d-15a3-4071-a231-6d322246623f" alt="Disease Classes Screen" width="200"/>
-  <img src="https://github.com/user-attachments/assets/57c2af91-9d1e-49bb-b411-ec0d473f0b7b" alt="Disease Details Screen" width="200"/>
+  <img src="https://github.com/user-attachments/assets/bf97c33c-db5a-443a-a994-9ee6f0db0ff4" alt="Sign In Screen" width="250"/>
+  <img src="https://github.com/user-attachments/assets/34b9049a-2ff1-407d-9d7c-cc8fa6fb05e9" alt="Sign Up Screen" width="250"/>
+  <img src="https://github.com/user-attachments/assets/84f65d5e-7af8-4779-b699-e3553338bb96" alt="Home Screen" width="250"/>
+  <img src="https://github.com/user-attachments/assets/2faebf8d-15a3-4071-a231-6d322246623f" alt="Disease Classes Screen" width="250"/>
+  <img src="https://github.com/user-attachments/assets/57c2af91-9d1e-49bb-b411-ec0d473f0b7b" alt="Disease Details Screen" width="250"/>
 </p>
 
 ## 🚀 Getting Started
