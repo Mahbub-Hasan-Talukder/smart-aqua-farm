@@ -1,10 +1,23 @@
 import 'package:get_it/get_it.dart';
+import 'package:smart_aqua_farm/features/home/data/data/home_data_source.dart';
+import 'package:smart_aqua_farm/features/home/data/data/home_data_source_imp.dart';
+import 'package:smart_aqua_farm/features/home/data/repo_imp/home_repo_imp.dart';
+import 'package:smart_aqua_farm/features/home/presentation/cubits/detection/detection_cubit.dart';
+import 'package:smart_aqua_farm/features/library/data/data_source/library_data_source.dart';
+import 'package:smart_aqua_farm/features/library/data/data_source/library_data_source_imp.dart';
+import 'package:smart_aqua_farm/features/library/data/repository_imp/library_repo_imp.dart';
+import 'package:smart_aqua_farm/features/library/domain/repository/library_repo.dart';
+import 'package:smart_aqua_farm/features/library/domain/use_cases/library_use_cases.dart';
+import 'package:smart_aqua_farm/features/library/presentation/cubits/dis_details/dis_details_cubit.dart';
 
 import '../../features/auth/data/data_source/local/auth_local_imp.dart'
     show AuthLocalImpl;
 import '../../features/auth/data/repository_impl/auth_reposity_impl.dart';
 import '../../features/auth/presentation/cubits/auth/sign_in/google_sign_in_cubit.dart';
 import '../../features/auth/presentation/cubits/auth/sign_in/sign_in_cubit.dart';
+import '../../features/home/domain/repository/home_repo.dart'
+    show HomeRepository;
+import '../../features/home/domain/use_case/home_use_cases.dart';
 import '../base/app_data/app_data.dart';
 import '../../features/auth/data/data_source/local/auth_local.dart';
 import '../../features/auth/data/data_source/remote/auth_remote.dart';
@@ -76,6 +89,8 @@ void setupLocator() {
   getIt.registerFactory<ForgetPasswordCubit>(
     () => ForgetPasswordCubit(getIt.call()),
   );
+  getIt.registerFactory<DetectionCubit>(() => DetectionCubit(getIt.call()));
+  getIt.registerFactory<DisDetailsCubit>(() => DisDetailsCubit(getIt.call()));
   // getIt.registerCachedFactory<FetchProjectsCubit>(
   //     () => FetchProjectsCubit(getIt.call()));
   // getIt.registerCachedFactory<FetchUserCubit>(
@@ -101,6 +116,10 @@ void setupLocator() {
   getIt.registerLazySingleton<ForgetPasswordUseCase>(
     () => ForgetPasswordUseCase(getIt.call()),
   );
+  getIt.registerLazySingleton<DetectionUseCase>(
+    () => DetectionUseCase(getIt.call()),
+  );
+  getIt.registerLazySingleton<DisDetUseCase>(() => DisDetUseCase(getIt.call()));
   // getIt.registerLazySingleton<FetchProjectsUseCase>(
   //     () => FetchProjectsUseCase(getIt.call()));
   // getIt.registerLazySingleton<FetchUserUseCase>(
@@ -127,6 +146,10 @@ void setupLocator() {
   getIt.registerLazySingleton<AuthRepository>(
     () => AuthReposityImpl(getIt.call(), getIt.call()),
   );
+  getIt.registerLazySingleton<HomeRepository>(() => HomeRepoImp(getIt.call()));
+  getIt.registerLazySingleton<LibraryRepository>(
+    () => LibraryRepoImp(getIt.call()),
+  );
   // getIt.registerLazySingleton<HomeRepository>(
   //     () => HomeRepositoryImpl(getIt.call(), getIt.call()));
   // getIt.registerLazySingleton<ProjectDetailsRepo>(
@@ -142,6 +165,8 @@ void setupLocator() {
   );
   getIt.registerLazySingleton<AuthRemote>(() => AuthRemoteImpl());
   getIt.registerLazySingleton<AuthLocal>(() => AuthLocalImpl());
+  getIt.registerLazySingleton<HomeDataSource>(() => HomeDataSourceImp());
+  getIt.registerLazySingleton<LibraryDataSource>(() => LibraryDataSourceImp());
   // getIt.registerLazySingleton<HomeRemote>(() => HomeRemoteImpl());
   // getIt.registerLazySingleton<HomeLocal>(() => HomeLocalImpl());
   // getIt.registerLazySingleton<ProjectDetailsRemote>(
