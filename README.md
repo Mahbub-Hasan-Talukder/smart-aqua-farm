@@ -23,12 +23,12 @@ Smart Aqua Farm is a mobile application designed to assist fish farmers and aqua
 
 ## 🛠 Tech Stack
 
-| Tech           | Purpose                        |
-|----------------|--------------------------------|
-| Flutter        | Frontend development           |
-| Supabase       | Authentication & database      |
-| EfficientNet-B0| Deep learning classification   |
-| BLoC           | State management               |
+| Tech               | Purpose                           |
+|--------------------|-----------------------------------|
+| EfficientNet-B0    | Deep learning classification      |
+| Supabase           | Authentication & database         |
+| Flutter            | Frontend development              |
+| BLoC               | State management                  |
 | Clean Architecture | Project structure and scalability |
 
 ## 🧪 Model Details
@@ -48,13 +48,13 @@ The app uses a trained **EfficientNet-B0** model to classify fish images into 7 
 
 ### Prerequisites
 
-- Flutter SDK (>= 3.x.x)
-- Dart (>= 3.x.x)
+- Flutter
+- Dart
 - Supabase account with authentication and database configured
 
 ### Installation
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/your-username/smart-aqua-farm.git
+   git clone https://github.com/Mahbub-Hasan-Talukder/smart-aqua-farm.git
    cd smart-aqua-farm
