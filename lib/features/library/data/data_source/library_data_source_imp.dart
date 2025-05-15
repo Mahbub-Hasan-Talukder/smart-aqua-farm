@@ -13,29 +13,22 @@ class LibraryDataSourceImp implements LibraryDataSource {
 
   @override
   Future<Map<String, dynamic>> fetchDiseaseDetails(String diseaseName) async {
-    final supabaseClient = getIt<AuthService>().getSupabaseClient();
-    final result =
-        await supabaseClient
-            .from('disease_library')
-            .select()
-            .eq('name', diseaseName)
-            .maybeSingle();
-
-    if (result != null) {
-      return result;
-    } else {
-      // Try to find a near match using ilike (case-insensitive partial match)
+    try {
+      print('dbg in data source $diseaseName');
+      final supabaseClient = getIt<AuthService>().getSupabaseClient();
       final nearMatches = await supabaseClient
           .from('disease_library')
           .select()
           .ilike('name', '%$diseaseName%')
           .limit(1);
-
+      print('dbg in data source $nearMatches');
       if (nearMatches.isNotEmpty) {
         return nearMatches.first;
       } else {
         throw Exception('Disease not found');
       }
+    } catch (e) {
+      throw Exception('Error fetching disease details: $e');
     }
   }
 }

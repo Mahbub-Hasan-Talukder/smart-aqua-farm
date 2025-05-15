@@ -11,10 +11,8 @@ class DisDetailsCubit extends Cubit<DisDetailsState> {
   void fetchDiseaseDetails(String diseaseName) async {
     emit(DisDetailsLoading());
     try {
-      // Simulate fetching disease details
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 1));
 
-      // Mock data
       final res = await _disDetUseCase.call(diseaseName);
       res.fold((l) => emit(DisDetailsFailure(error: l)), (r) {
         final diseaseDescription = r.description;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_aqua_farm/features/library/presentation/screens/dis_details.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/onboarding/presentation/screens/splash_screen.dart';
 
@@ -63,6 +64,18 @@ class MyRouterConfig {
                 builder: (context, state) {
                   return LibraryScreen();
                 },
+                routes: [
+                  GoRoute(
+                    path: MyRoutes.diseasesDetails,
+                    builder: (context, state) {
+                      final diseaseName = state.extra as String?;
+                      print('dbg in router diseaseName: $diseaseName');
+                      return DisDetailsScreen(
+                        diseaseName: diseaseName ?? 'No name provided',
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),

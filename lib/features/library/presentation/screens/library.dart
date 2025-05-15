@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:smart_aqua_farm/core/di/di.dart';
 import 'package:smart_aqua_farm/features/library/domain/entity/disease_entity.dart';
 import 'package:smart_aqua_farm/features/library/presentation/cubits/fetch_dis/fetch_dis_cubit.dart';
+import '../../../../core/navigation/routes.dart';
 import '../../../../core/widgets/app_bar.dart';
 
 class LibraryScreen extends StatefulWidget {
@@ -36,36 +37,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
   }
 
   _buildBody(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(height: 10),
-          ListView.separated(
-            itemBuilder: (context, idx) {
-              return GestureDetector(
-                child: _diseaseInfoTile(context, idx),
-                onTap: () {
-                  // context.go(location);
-                },
-              );
-            },
-            separatorBuilder: (context, idx) {
-              return Divider(
-                color: Theme.of(
-                  context,
-                ).colorScheme.primary.withValues(alpha: 0.3),
-              );
-            },
-            itemCount: list.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _diseaseInfoTile(BuildContext context, int idx) {
     return BlocBuilder<FetchDisCubit, FetchDisState>(
       bloc: _fetchDisCubit,
       builder: (context, state) {
@@ -75,21 +46,13 @@ class _LibraryScreenState extends State<LibraryScreen> {
           return Center(
             child: Text(
               state.error,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           );
         } else if (state is FetchDisSuccess) {
-          return Row(
-            children: [
-              _imageContainer(context, idx),
-              _info(idx, context),
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 18,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              SizedBox(width: 10),
-            ],
+          return Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: _buildDiseaseList(context, state),
           );
         }
         return const SizedBox();
@@ -97,7 +60,48 @@ class _LibraryScreenState extends State<LibraryScreen> {
     );
   }
 
-  Widget _info(int idx, BuildContext context) {
+  Widget _buildDiseaseList(BuildContext context, FetchDisSuccess state) {
+    final diseases = state.diseases;
+    return ListView.separated(
+      itemCount: diseases.length,
+      separatorBuilder: (context, index) {
+        return const Divider(height: 15, color: Colors.grey);
+      },
+      itemBuilder: (context, idx) {
+        return InkWell(
+          onTap: () {
+            print('dbg clicked on ${diseases[idx].name}');
+            context.go(
+              "${MyRoutes.library}/${MyRoutes.diseasesDetails}",
+              extra: diseases[idx].name,
+            );
+          },
+          child: _diseaseInfoTile(context, state.diseases, idx),
+        );
+      },
+    );
+  }
+
+  Widget _diseaseInfoTile(
+    BuildContext context,
+    List<DiseaseEntity> list,
+    int idx,
+  ) {
+    return Row(
+      children: [
+        _imageContainer(context, list, idx),
+        _info(idx, list, context),
+        Icon(
+          Icons.arrow_forward_ios,
+          size: 18,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        SizedBox(width: 10),
+      ],
+    );
+  }
+
+  Widget _info(int idx, List<DiseaseEntity> list, BuildContext context) {
     return Expanded(
       child: ListTile(
         title: Text(
@@ -108,15 +112,21 @@ class _LibraryScreenState extends State<LibraryScreen> {
         ),
         subtitle: Text(
           list[idx].description,
+          maxLines: 4,
+          overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+            color: Theme.of(context).colorScheme.shadow,
           ),
         ),
       ),
     );
   }
 
-  Container _imageContainer(BuildContext context, int idx) {
+  Container _imageContainer(
+    BuildContext context,
+    List<DiseaseEntity> list,
+    int idx,
+  ) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10),
       height: 120,
@@ -134,72 +144,4 @@ class _LibraryScreenState extends State<LibraryScreen> {
       ),
     );
   }
-
-  final List<DiseaseEntity> list = [
-    DiseaseEntity(
-      id: '1',
-      name: 'Bacterial Red',
-      description:
-          'Bacterial Red disease is a red disease occurred by bacteria',
-      url:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg/1200px-Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg',
-    ),
-    DiseaseEntity(
-      id: '1',
-      name: 'Bacterial Red',
-      description:
-          'Bacterial Red disease is a red disease occurred by bacteria',
-      url:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg/1200px-Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg',
-    ),
-    DiseaseEntity(
-      id: '1',
-      name: 'Bacterial Red',
-      description:
-          'Bacterial Red disease is a red disease occurred by bacteria',
-      url:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg/1200px-Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg',
-    ),
-    DiseaseEntity(
-      id: '1',
-      name: 'Bacterial Red',
-      description:
-          'Bacterial Red disease is a red disease occurred by bacteria',
-      url:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg/1200px-Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg',
-    ),
-    DiseaseEntity(
-      id: '1',
-      name: 'Bacterial Red',
-      description:
-          'Bacterial Red disease is a red disease occurred by bacteria',
-      url:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg/1200px-Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg',
-    ),
-    DiseaseEntity(
-      id: '1',
-      name: 'Bacterial Red',
-      description:
-          'Bacterial Red disease is a red disease occurred by bacteria',
-      url:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg/1200px-Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg',
-    ),
-    DiseaseEntity(
-      id: '1',
-      name: 'Bacterial Red',
-      description:
-          'Bacterial Red disease is a red disease occurred by bacteria',
-      url:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg/1200px-Pacific_double-saddle_butterflyfish_%28Chaetodon_ulietensis%29_and_other_Chaetodon_Moorea.jpg',
-    ),
-  ];
 }
-/**
- * return ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(list[idx].url),
-              ),
-              title: Text(list[idx].name),
-              subtitle: Text(list[idx].description),
-            );
- */
