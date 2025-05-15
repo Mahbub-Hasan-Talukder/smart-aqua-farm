@@ -31,7 +31,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar().build(context),
+      appBar: CommonAppBar(title: 'Diseases Library').build(context),
       body: _buildBody(context),
     );
   }

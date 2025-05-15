@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar().build(context),
+      appBar: CommonAppBar(title: 'Smart Aqua Farm').build(context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

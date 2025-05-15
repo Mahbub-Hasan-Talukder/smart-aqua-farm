@@ -28,7 +28,7 @@ class _OnboardingViewState extends State<OnboardingView> {
   Widget build(BuildContext context) {
     final items = OnboardingItems.getItem(context);
     return Scaffold(
-      appBar: CommonAppBar().build(context),
+      appBar: CommonAppBar(title: 'Welcome').build(context),
       bottomSheet: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
         child:

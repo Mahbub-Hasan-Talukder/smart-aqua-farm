@@ -31,7 +31,7 @@ class _DisDetailsState extends State<DisDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar().build(context),
+      appBar: CommonAppBar(title: 'Disease Details').build(context),
       body: BlocBuilder<DisDetailsCubit, DisDetailsState>(
         bloc: _disDetailsCubit,
         builder: (context, state) {
