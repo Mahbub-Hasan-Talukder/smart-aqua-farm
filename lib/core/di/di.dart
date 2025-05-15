@@ -18,6 +18,7 @@ import '../../features/auth/presentation/cubits/auth/sign_in/sign_in_cubit.dart'
 import '../../features/home/domain/repository/home_repo.dart'
     show HomeRepository;
 import '../../features/home/domain/use_case/home_use_cases.dart';
+import '../../features/library/presentation/cubits/fetch_dis/fetch_dis_cubit.dart';
 import '../base/app_data/app_data.dart';
 import '../../features/auth/data/data_source/local/auth_local.dart';
 import '../../features/auth/data/data_source/remote/auth_remote.dart';
@@ -91,6 +92,7 @@ void setupLocator() {
   );
   getIt.registerFactory<DetectionCubit>(() => DetectionCubit(getIt.call()));
   getIt.registerFactory<DisDetailsCubit>(() => DisDetailsCubit(getIt.call()));
+  getIt.registerFactory<FetchDisCubit>(() => FetchDisCubit(getIt.call()));
   // getIt.registerCachedFactory<FetchProjectsCubit>(
   //     () => FetchProjectsCubit(getIt.call()));
   // getIt.registerCachedFactory<FetchUserCubit>(
@@ -118,6 +120,9 @@ void setupLocator() {
   );
   getIt.registerLazySingleton<DetectionUseCase>(
     () => DetectionUseCase(getIt.call()),
+  );
+  getIt.registerLazySingleton<FetchDisUseCase>(
+    () => FetchDisUseCase(getIt.call()),
   );
   getIt.registerLazySingleton<DisDetUseCase>(() => DisDetUseCase(getIt.call()));
   // getIt.registerLazySingleton<FetchProjectsUseCase>(

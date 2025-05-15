@@ -16,4 +16,5 @@ class MyRoutes {
   static String profile = '/profile';
 
   static String library = '/library';
+  static String diseasesDetails = 'details';
 }
