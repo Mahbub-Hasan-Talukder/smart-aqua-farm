@@ -20,8 +20,8 @@ import '../../features/dummy_screens/profile.dart';
 import 'error_page.dart';
 import 'nav_bar.dart';
 import 'routes.dart';
-import '../../features/dummy_screens/home.dart';
-import '../../features/dummy_screens/library.dart';
+import '../../features/home/presentation/screen/home.dart';
+import '../../features/library/presentation/screens/library.dart';
 
 class MyRouterConfig {
   static final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -61,7 +61,7 @@ class MyRouterConfig {
               GoRoute(
                 path: MyRoutes.library,
                 builder: (context, state) {
-                  return const LibraryScreen();
+                  return LibraryScreen();
                 },
               ),
             ],

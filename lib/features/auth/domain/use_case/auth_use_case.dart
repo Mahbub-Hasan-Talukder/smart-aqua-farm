@@ -6,7 +6,7 @@ import '../../../../core/base/use_case/base_use_case.dart';
 import '../entity/user_entity.dart';
 import '../repository/auth_repository.dart' show AuthRepository;
 
-class SignUpUseCase extends BaseUseCase<UserEntity, Failure, Success> {
+class SignUpUseCase extends BaseUseCase<Failure, UserEntity, Success> {
   final AuthRepository _authRepository;
   SignUpUseCase(this._authRepository);
 
@@ -16,7 +16,7 @@ class SignUpUseCase extends BaseUseCase<UserEntity, Failure, Success> {
   }
 }
 
-class SignInUseCase extends BaseUseCase<UserEntity, Failure, Success> {
+class SignInUseCase extends BaseUseCase<Failure, UserEntity, Success> {
   final AuthRepository _authRepository;
   SignInUseCase(this._authRepository);
 
@@ -26,7 +26,7 @@ class SignInUseCase extends BaseUseCase<UserEntity, Failure, Success> {
   }
 }
 
-class GoogleSignInUseCase extends BaseUseCase<void, Failure, Success> {
+class GoogleSignInUseCase extends BaseUseCase<Failure, void, Success> {
   final AuthRepository _authRepository;
   GoogleSignInUseCase(this._authRepository);
 
@@ -36,7 +36,7 @@ class GoogleSignInUseCase extends BaseUseCase<void, Failure, Success> {
   }
 }
 
-class ForgetPasswordUseCase extends BaseUseCase<String, Failure, Success> {
+class ForgetPasswordUseCase extends BaseUseCase<Failure, String, Success> {
   final AuthRepository _authRepository;
   ForgetPasswordUseCase(this._authRepository);
 
