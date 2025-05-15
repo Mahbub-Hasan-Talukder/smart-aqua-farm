@@ -1,5 +1,4 @@
 import 'package:smart_aqua_farm/core/services/auth_service/auth_service.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/di/di.dart';
 import 'library_data_source.dart';
@@ -14,14 +13,12 @@ class LibraryDataSourceImp implements LibraryDataSource {
   @override
   Future<Map<String, dynamic>> fetchDiseaseDetails(String diseaseName) async {
     try {
-      print('dbg in data source $diseaseName');
       final supabaseClient = getIt<AuthService>().getSupabaseClient();
       final nearMatches = await supabaseClient
           .from('disease_library')
           .select()
           .ilike('name', '%$diseaseName%')
           .limit(1);
-      print('dbg in data source $nearMatches');
       if (nearMatches.isNotEmpty) {
         return nearMatches.first;
       } else {

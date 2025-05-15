@@ -69,7 +69,6 @@ class MyRouterConfig {
                     path: MyRoutes.diseasesDetails,
                     builder: (context, state) {
                       final diseaseName = state.extra as String?;
-                      print('dbg in router diseaseName: $diseaseName');
                       return DisDetailsScreen(
                         diseaseName: diseaseName ?? 'No name provided',
                       );
