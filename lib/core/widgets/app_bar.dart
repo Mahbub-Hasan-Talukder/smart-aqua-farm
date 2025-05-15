@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CommonAppBar extends StatelessWidget {
-  const CommonAppBar({super.key});
+  const CommonAppBar({super.key, required this.title});
+  final String title;
 
   @override
   AppBar build(BuildContext context) {
@@ -15,7 +16,7 @@ class CommonAppBar extends StatelessWidget {
     return AppBar(
       backgroundColor: colorScheme.primary,
       title: Text(
-        "Smart Aqua Farm",
+        title,
         style: textTheme.titleLarge?.copyWith(
           color: colorScheme.surface,
           fontWeight: FontWeight.w700,
