@@ -16,7 +16,7 @@ class PyTorchModel(private val context: Context) {
     private var model: Module? = null
 
     fun loadModel() {
-        model = Module.load(assetFilePath(context, "efficientnetb0_fish_scripted.pt"))
+        model = Module.load(assetFilePath(context, "sqznt_scrpt.pt"))
     }
 
     fun predict(imageBytes: ByteArray, result: MethodChannel.Result) {
