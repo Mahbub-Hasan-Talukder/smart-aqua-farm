@@ -1,4 +1,7 @@
 import 'package:get_it/get_it.dart';
+
+import '../services/firebase_service/firebase_setup.dart';
+import '../services/firebase_service/firebase_setup_imp.dart';
 import '../../features/auth/presentation/cubits/auth/reset_password/reset_pass_cubit.dart';
 import '../../features/home/data/data/home_data_source.dart';
 import '../../features/home/data/data/home_data_source_imp.dart';
@@ -17,7 +20,6 @@ import '../../features/auth/presentation/cubits/auth/sign_in/sign_in_cubit.dart'
 import '../../features/home/domain/repository/home_repo.dart';
 import '../../features/home/domain/use_case/home_use_cases.dart';
 import '../../features/library/presentation/cubits/fetch_dis/fetch_dis_cubit.dart';
-import '../base/app_data/app_data.dart';
 import '../../features/auth/data/data_source/local/auth_local.dart';
 import '../../features/auth/data/data_source/remote/auth_remote.dart';
 import '../../features/auth/data/data_source/remote/auth_remote_impl.dart';
@@ -47,7 +49,7 @@ void setupLocator() {
     () => SharedPreferenceService(),
   );
   getIt.registerLazySingleton<AuthService>(() => SupabaseImpl());
-  getIt.registerLazySingleton<AppData>(() => AppData());
+  getIt.registerLazySingleton<FirebaseSetup>(() => FirebaseSetupImp());
 
   /// Register Cubits
   getIt.registerFactory(() => OnboardingCubit(getIt.call()));

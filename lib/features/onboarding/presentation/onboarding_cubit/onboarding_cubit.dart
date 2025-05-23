@@ -10,19 +10,17 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   OnboardingCubit(this.onboardingUseCase) : super(OnboardingInitial());
 
   void getOnboardingStatus() async {
-    if (state is OnboardingLoading) return;
-
     emit(OnboardingLoading());
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(seconds: 1));
 
     final onboardStatus = await onboardingUseCase.isOnboardingCompleted();
 
     onboardStatus.fold(
-      (completed) {
-        emit(OnboardingLoaded(completed));
+      (l) {
+        emit(OnboardingLoaded(l));
       },
-      (error) {
-        emit(OnboardingError(error));
+      (r) {
+        emit(OnboardingError(r));
       },
     );
   }
