@@ -34,56 +34,79 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final screenSize = MediaQuery.sizeOf(context);
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Enter email',
-                style: textTheme.textBaseMedium.copyWith(
-                  color: colorScheme.tertiary,
-                ),
-              ),
-              const SizedBox(height: 20),
-              EmailField(
-                screenSize: MediaQuery.sizeOf(context).width,
-                hintText: 'email',
-                controller: _emailCtrl,
-                emailCubit: _emailCubit,
-              ),
-              const SizedBox(height: 20),
-              BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
-                bloc: _forgetPassCubit,
-                listener: (context, state) {
-                  if (state is ForgetPasswordFailed) {
-                    _showSnackbar(
-                      context,
-                      state.failure.message,
-                      colorScheme.error,
-                    );
-                  } else if (state is ForgetPasswordSuccess) {
-                    _showSnackbar(context, state.success.message, Colors.green);
-                    context.go(MyRoutes.signInRoute);
-                  }
-                },
-                builder: (context, state) {
-                  return ElevatedButton(
-                    onPressed:
-                        state is ForgetPasswordLoading ? null : _validateInput,
-                    child:
-                        state is ForgetPasswordLoading
-                            ? const CircularProgressIndicator()
-                            : const Text('submit'),
-                  );
-                },
-              ),
-            ],
-          ),
+          child: _bodyElements(textTheme, colorScheme, screenSize, context),
         ),
       ),
+    );
+  }
+
+  Column _bodyElements(
+    TextTheme textTheme,
+    ColorScheme colorScheme,
+    Size screenSize,
+    BuildContext context,
+  ) {
+    return Column(
+      children: [
+        const SizedBox(height: 10),
+        Text(
+          'Reset your password',
+          style: textTheme.textxlSemiBold.copyWith(color: colorScheme.primary),
+        ),
+        SizedBox(height: screenSize.width * .6),
+
+        Text(
+          'Enter email',
+          style: textTheme.textBaseMedium.copyWith(color: colorScheme.tertiary),
+        ),
+        const SizedBox(height: 20),
+        EmailField(
+          screenSize: MediaQuery.sizeOf(context).width,
+          hintText: 'email',
+          controller: _emailCtrl,
+          emailCubit: _emailCubit,
+        ),
+        const SizedBox(height: 20),
+        BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+          bloc: _forgetPassCubit,
+          listener: (context, state) {
+            if (state is ForgetPasswordFailed) {
+              _showSnackbar(context, state.failure.message, colorScheme.error);
+            } else if (state is ForgetPasswordSuccess) {
+              _showSnackbar(context, state.success.message, Colors.green);
+              context.go(
+                "${MyRoutes.forgotPassword}/${MyRoutes.otpRoute}",
+                extra: _emailCtrl.text.trim(),
+              );
+            }
+          },
+          builder: (context, state) {
+            return ElevatedButton(
+              onPressed: state is ForgetPasswordLoading ? null : _validateInput,
+              child:
+                  state is ForgetPasswordLoading
+                      ? const CircularProgressIndicator()
+                      : const Text('submit'),
+            );
+          },
+        ),
+        IconButton(
+          onPressed: () {
+            print('dbg email testing: ${_emailCtrl.text}');
+            context.go(
+              "${MyRoutes.forgotPassword}/${MyRoutes.otpRoute}",
+              extra: _emailCtrl.text.trim(),
+            );
+          },
+          icon: Icon(Icons.pages),
+        ),
+      ],
     );
   }
 

@@ -3,7 +3,6 @@ package com.example.smart_aqua_farm
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
-import com.example.smart_aqua_farm.PyTorchModel
 
 class MainActivity : FlutterActivity() {
     private val CHANNEL = "com.example.smart_aqua_farm/pytorch"

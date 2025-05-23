@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       bloc: theme,
       builder: (context, state) {
         return MaterialApp.router(
-          title: 'Task Hive',
+          title: 'Smart Aqua Farm',
           theme: ThemeClass.lightTheme,
           darkTheme: ThemeClass.darkTheme,
           themeMode: state.themeMode,

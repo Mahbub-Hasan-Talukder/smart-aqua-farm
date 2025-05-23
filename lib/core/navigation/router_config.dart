@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_aqua_farm/features/library/presentation/screens/dis_details.dart';
+
+import '../../features/auth/presentation/screens/reset_pass_screen.dart';
+import '../../features/library/presentation/screens/dis_details.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/onboarding/presentation/screens/splash_screen.dart';
-
-// import '../../features/auth/presentation/screens/forget_pass_screen.dart';
-// import '../../features/auth/presentation/screens/sign_up_screen.dart';
-// import '../../features/auth/presentation/screens/signin_screen.dart';
-// import '../../features/home/presentation/screens/projects_screen.dart';
-// import '../../features/onboarding/presentation/screens/onboard_screen_1.dart';
-// import '../../features/onboarding/presentation/screens/onboard_screen_2.dart';
-// import '../../features/profile/presentation/screens/profile_screen.dart';
-// import '../../features/project_details/presentation/screens/task_create_screen.dart';
-// import '../../features/project_details/presentation/screens/TaskDetailsScreen.dart';
-// import '../../features/project_details/presentation/screens/dashboard_screen.dart';
 import '../../features/auth/presentation/screens/forget_pass_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
 import '../../features/auth/presentation/screens/signin_screen.dart';
@@ -105,6 +96,15 @@ class MyRouterConfig {
       GoRoute(
         path: MyRoutes.forgotPassword,
         builder: (context, state) => const ForgetPasswordScreen(),
+        routes: [
+          GoRoute(
+            path: MyRoutes.otpRoute,
+            builder: (context, state) {
+              final email = state.extra as String?;
+              return ResetPassScreen(email: email ?? 'No email provided');
+            },
+          ),
+        ],
       ),
       GoRoute(
         path: MyRoutes.onboard,

@@ -82,17 +82,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
       children: [
         const SizedBox(height: 60),
         Text(
-          'TASK-HIVE',
+          'SMART AQUA FARM',
           style: textTheme.textxlSemiBold.copyWith(color: colorScheme.primary),
         ),
         const SizedBox(height: 10),
         Text(
-          'Task Management App',
+          'Smart Fish Farming Assistant',
           style: textTheme.textBaseMedium.copyWith(color: colorScheme.tertiary),
         ),
-        const SizedBox(height: 60),
+        const SizedBox(height: 30),
         Text('Create your account', style: textTheme.textSmMedium),
         const SizedBox(height: 30),
+
         NameField(
           screenSize: MediaQuery.of(context).size.width,
           hintText: 'User Name',

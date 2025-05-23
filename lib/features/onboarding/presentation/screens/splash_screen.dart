@@ -43,6 +43,9 @@ class _SplashScreenState extends State<SplashScreen> {
         BlocConsumer<OnboardingCubit, OnboardingState>(
           bloc: _onboardingCubit,
           listener: (context, state) {
+            if (state is OnboardingLoaded) {
+              print('dbg Onboarding : ${state.onboardComplete}');
+            }
             if (state is OnboardingLoaded && !state.onboardComplete) {
               context.go(MyRoutes.onboard);
             }

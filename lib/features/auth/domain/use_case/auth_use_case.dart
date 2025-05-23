@@ -42,6 +42,17 @@ class ForgetPasswordUseCase extends BaseUseCase<Failure, String, Success> {
 
   @override
   Future<Either<Failure, Success>> call(String input) async {
-    return await _authRepository.forgetPassword(input);
+    return await _authRepository.sendOtp(input);
+  }
+}
+
+class ResetPasswordUseCase
+    extends BaseUseCase<Failure, Map<String, dynamic>, Success> {
+  final AuthRepository _authRepository;
+  ResetPasswordUseCase(this._authRepository);
+
+  @override
+  Future<Either<Failure, Success>> call(Map<String, dynamic> input) async {
+    return await _authRepository.resetPass(input);
   }
 }

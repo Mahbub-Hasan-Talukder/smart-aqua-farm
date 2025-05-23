@@ -45,8 +45,23 @@ class AuthRemoteImpl implements AuthRemote {
   }
 
   @override
-  Future<void> verifyOtp() {
-    throw UnimplementedError();
+  Future<void> resetPass(Map<String, dynamic> payload) async {
+    try {
+      final res = await authClient.verifyOTP(
+        type: OtpType.email,
+        email: payload['email'],
+        token: payload['otp'],
+      );
+      if (res.user != null) {
+        final res = await authClient.updateUser(
+          UserAttributes(password: payload['password']),
+        );
+        print('dbg in: ${res.user?.userMetadata}');
+      }
+      print('dbg out: ${res.user?.userMetadata}');
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
   @override

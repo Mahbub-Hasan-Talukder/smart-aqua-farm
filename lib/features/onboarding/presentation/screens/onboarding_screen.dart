@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +25,15 @@ class _OnboardingViewState extends State<OnboardingView> {
   final _onBoardingCubit = getIt<OnboardingCubit>();
 
   bool isLastPage = false;
+
+  @override
+  void initState() {
+    Future(() async {
+      final prefs = getIt<SharedPreferenceService>();
+      final x = await prefs.getBool('onboarding');
+      print('dbg in init: $x');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +81,7 @@ class _OnboardingViewState extends State<OnboardingView> {
       height: 55,
       child: TextButton(
         onPressed: () async {
-          final prefs = getIt<SharedPreferenceService>();
-          prefs.setBool("onboarding", true);
-          if (!mounted) return;
-          context.go(MyRoutes.signInRoute);
+          _onBoardingCubit.setOnboardingCompleted();
         },
         child: BlocConsumer<OnboardingCubit, OnboardingState>(
           bloc: _onBoardingCubit,

@@ -7,6 +7,6 @@ abstract class AuthRepository {
   Future<Either<Failure, Success>> signUp(UserEntity userInfo);
   Future<Either<Failure, Success>> signIn(UserEntity userInfo);
   Future<Either<Failure, Success>> signInWithGoogle();
-  Future<Either<Failure, Success>> forgetPassword(String email);
-  Future<Either<Failure, UserEntity>> verifyOtp();
+  Future<Either<Failure, Success>> sendOtp(String email);
+  Future<Either<Failure, Success>> resetPass(Map<String, dynamic> payload);
 }

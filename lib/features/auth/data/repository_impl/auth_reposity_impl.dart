@@ -15,16 +15,6 @@ class AuthReposityImpl implements AuthRepository {
   AuthReposityImpl(this._authRemoteDataSource, this._authLocalDataSource);
 
   @override
-  Future<Either<Failure, Success>> forgetPassword(String email) async {
-    try {
-      await _authRemoteDataSource.forgetPassword(email);
-      return Right(Success('OTP sent to your email'));
-    } catch (e) {
-      return Left(Failure(e.toString()));
-    }
-  }
-
-  @override
   Future<Either<Failure, Success>> signIn(UserEntity userInfo) async {
     try {
       final response = await _authRemoteDataSource.signIn(userInfo.toJson());
@@ -57,11 +47,6 @@ class AuthReposityImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> verifyOtp() async {
-    return Left(Failure('verifyOtp() not yet implemented'));
-  }
-
-  @override
   Future<Either<Failure, Success>> signInWithGoogle() async {
     try {
       final response = await _authRemoteDataSource.signInWithGoogle();
@@ -88,6 +73,28 @@ class AuthReposityImpl implements AuthRepository {
       if (kDebugMode) {
         debugPrint('Error signing in with Google: $e');
       }
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Success>> sendOtp(String email) async {
+    try {
+      await _authRemoteDataSource.forgetPassword(email);
+      return Right(Success('OTP sent to your email'));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Success>> resetPass(
+    Map<String, dynamic> payload,
+  ) async {
+    try {
+      await _authRemoteDataSource.resetPass(payload);
+      return Right(Success('Reset password successful.'));
+    } catch (e) {
       return Left(Failure(e.toString()));
     }
   }
