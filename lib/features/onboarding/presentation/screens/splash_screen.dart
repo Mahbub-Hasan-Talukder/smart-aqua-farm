@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
 import '../onboarding_cubit/onboarding_cubit.dart';
 import '../../../../core/navigation/routes.dart';
 import '../../../../core/di/di.dart';
@@ -18,7 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _onboardingCubit.getOnboardingStatus();
+    Future.microtask(() async {
+      _onboardingCubit.getOnboardingStatus();
+    });
   }
 
   @override
@@ -44,19 +47,17 @@ class _SplashScreenState extends State<SplashScreen> {
           bloc: _onboardingCubit,
           listener: (context, state) {
             if (state is OnboardingLoaded) {
-              print('dbg Onboarding : ${state.onboardComplete}');
-            }
-            if (state is OnboardingLoaded && !state.onboardComplete) {
-              context.go(MyRoutes.onboard);
-            }
-            if (state is OnboardingLoaded && state.onboardComplete) {
-              _onboardingCubit.checkSignInStatus();
-            }
-            if (state is LoggedInStatus && state.isSignedIn) {
-              context.go(MyRoutes.home);
-            }
-            if (state is LoggedInStatus && !state.isSignedIn) {
-              context.go(MyRoutes.signInRoute);
+              if (!state.onboardComplete) {
+                context.go(MyRoutes.onboard);
+              } else {
+                _onboardingCubit.checkSignInStatus();
+              }
+            } else if (state is LoggedInStatus) {
+              if (state.isSignedIn) {
+                context.go(MyRoutes.home);
+              } else {
+                context.go(MyRoutes.signInRoute);
+              }
             }
           },
           builder: (context, state) {

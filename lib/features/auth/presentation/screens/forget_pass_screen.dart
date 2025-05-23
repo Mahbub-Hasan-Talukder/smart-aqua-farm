@@ -98,7 +98,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         ),
         IconButton(
           onPressed: () {
-            print('dbg email testing: ${_emailCtrl.text}');
             context.go(
               "${MyRoutes.forgotPassword}/${MyRoutes.otpRoute}",
               extra: _emailCtrl.text.trim(),

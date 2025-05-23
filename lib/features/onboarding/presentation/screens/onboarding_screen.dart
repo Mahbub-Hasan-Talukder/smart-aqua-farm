@@ -1,14 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_aqua_farm/core/widgets/alerts.dart';
-import 'package:smart_aqua_farm/core/widgets/app_bar.dart';
 
+import '../../../../core/widgets/alerts.dart';
+import '../../../../core/widgets/app_bar.dart';
 import '../../../../core/di/di.dart';
 import '../../../../core/navigation/routes.dart';
-import '../../../../core/services/local/shared_preference_services.dart';
 import '../onboarding_cubit/onboarding_cubit.dart';
 import '../widgets/onboarding_nav.dart';
 import 'onboarding_items.dart';
@@ -28,11 +25,7 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   void initState() {
-    Future(() async {
-      final prefs = getIt<SharedPreferenceService>();
-      final x = await prefs.getBool('onboarding');
-      print('dbg in init: $x');
-    });
+    super.initState();
   }
 
   @override

@@ -4,6 +4,7 @@ class SharedPreferenceService {
   SharedPreferences? _prefsInstance;
   static final SharedPreferenceService _instance =
       SharedPreferenceService._internal();
+  bool _initialized = false;
 
   factory SharedPreferenceService() {
     return _instance;
@@ -11,13 +12,20 @@ class SharedPreferenceService {
 
   SharedPreferenceService._internal();
 
+  Future<void> init() async {
+    if (!_initialized) {
+      _prefsInstance = await SharedPreferences.getInstance();
+      _initialized = true;
+    }
+  }
+
   Future<SharedPreferences> _getInstance() async {
     if (_prefsInstance != null) {
       return _prefsInstance!;
     }
 
     try {
-      _prefsInstance = await SharedPreferences.getInstance();
+      await init();
       return _prefsInstance!;
     } catch (e) {
       throw Exception('Failed to initialize SharedPreferences: $e');

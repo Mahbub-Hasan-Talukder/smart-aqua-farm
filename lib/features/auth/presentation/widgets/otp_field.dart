@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_aqua_farm/features/auth/presentation/cubits/validation/otp_validation_cubit.dart';
 
+import '../cubits/validation/otp_validation_cubit.dart';
 import 'input_field_prefix_icon.dart';
-import '../cubits/validation/name_validation_cubit.dart';
 
 class OtpField extends StatelessWidget {
   const OtpField({

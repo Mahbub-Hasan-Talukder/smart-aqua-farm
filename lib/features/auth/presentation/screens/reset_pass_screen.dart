@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_aqua_farm/core/di/di.dart';
-import 'package:smart_aqua_farm/core/extensions/app_extension.dart';
-import 'package:smart_aqua_farm/features/auth/presentation/cubits/auth/reset_password/reset_pass_cubit.dart';
-import 'package:smart_aqua_farm/features/auth/presentation/cubits/validation/otp_validation_cubit.dart';
-import 'package:smart_aqua_farm/features/auth/presentation/widgets/otp_field.dart';
 
+import '../../../../core/di/di.dart';
+import '../../../../core/extensions/app_extension.dart';
+import '../cubits/auth/reset_password/reset_pass_cubit.dart';
+import '../cubits/validation/otp_validation_cubit.dart';
+import '../widgets/otp_field.dart';
 import '../../../../core/navigation/routes.dart';
 import '../../../../core/validators/input_field_validation.dart';
-import '../cubits/auth/sign_in/sign_in_cubit.dart';
 import '../cubits/validation/pass_validation_cubit.dart';
 import '../widgets/google_sign_in.dart';
 import '../widgets/password_field.dart';
@@ -139,9 +138,6 @@ class _ResetPassScreenState extends State<ResetPassScreen> {
     if (_passCtrl.text != _conPassCtrl.text) {
       _conPassValidationCubit.showError('Passwords must be same');
     }
-    print(
-      'dbg: ${_passCtrl.text} ${_conPassCtrl.text} ${_otpCtrl.text} ${widget.email}',
-    );
     if (isOtpValid == null && passValidationStatus == null) {
       _resetPassCubit.resetPassword(
         widget.email,
