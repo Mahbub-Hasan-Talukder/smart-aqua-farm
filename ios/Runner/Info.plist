@@ -49,5 +49,16 @@
 	<string>Pick an image from gallery</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Pick image from Camera</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.444041147154-licj79ib5d2ojka98f2q5k53ig5m5i32</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

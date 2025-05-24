@@ -64,9 +64,7 @@ class AuthReposityImpl implements AuthRepository {
               response.user!.userMetadata?['picture']?.toString() ?? '',
         ),
       );
-      final userData = await _authRemoteDataSource.getUser(
-        response.user!.email ?? '',
-      );
+      final userData = await _authRemoteDataSource.getUser(response.user!.id);
       await _authLocalDataSource.saveUser(userData);
       return Right(Success('User successfully signed in with Google'));
     } catch (e) {

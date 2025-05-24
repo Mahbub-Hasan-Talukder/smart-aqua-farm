@@ -15,7 +15,7 @@ void main() async {
     Bloc.observer = AppBlocObserver();
     await getIt<AuthService>().init();
     await getIt<SharedPreferenceService>().init();
-    await getIt<FirebaseSetup>().init();
+    await getIt<FirebaseCrashLyticsSetup>().init();
   } catch (e, s) {
     logger.e(e.toString());
     logger.e(s.toString());

@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -98,35 +99,42 @@ class AuthRemoteImpl implements AuthRemote {
 
   @override
   Future<AuthResponse> signInWithGoogle() async {
-    throw UnimplementedError();
-    // try {
-    //   final GoogleSignIn googleSignIn = GoogleSignIn(
-    //     scopes: ['email', 'profile'],
-    //     serverClientId:
-    //         '688864880472-65bh2k76mqijcjl0jh4d9snsgmoakf9a.apps.googleusercontent.com',
-    //   );
+    try {
+      return await _signInWithGoogleNative();
+    } catch (e) {
+      logger.e('Error in signInWithGoogle: $e');
+      throw AuthException(e.toString());
+    }
+  }
 
-    //   final googleUser = await googleSignIn.signIn();
-    //   if (googleUser == null) throw const AuthException('Sign in cancelled');
+  Future<AuthResponse> _signInWithGoogleNative() async {
+    final webClientId =
+        dotenv.env['GOOGLE_WEB_CLIENT_ID'] ?? 'no-web-client-id-found';
+    final iosClientId =
+        dotenv.env['GOOGLE_IOS_CLIENT_ID'] ?? 'no-ios-client-id-found';
 
-    //   final googleAuth = await googleUser.authentication;
-    //   if (googleAuth.accessToken == null || googleAuth.idToken == null) {
-    //     throw const AuthException('Missing Google auth tokens');
-    //   }
+    final googleSignIn = GoogleSignIn(
+      clientId: iosClientId,
+      serverClientId: webClientId,
+    );
 
-    //   final response = await supabaseClient.auth.signInWithIdToken(
-    //     provider: OAuthProvider.google,
-    //     idToken: googleAuth.idToken!,
-    //     accessToken: googleAuth.accessToken!,
-    //   );
+    final googleUser = await googleSignIn.signIn();
+    if (googleUser == null) {
+      throw const AuthException('Google sign-in cancelled');
+    }
 
-    //   if (response.user == null) {
-    //     throw const AuthException('Google sign-in failed');
-    //   }
+    final googleAuth = await googleUser.authentication;
+    final accessToken = googleAuth.accessToken;
+    final idToken = googleAuth.idToken;
 
-    //   return response;
-    // } catch (e) {
-    //   throw AuthException(e.toString());
-    // }
+    if (accessToken == null || idToken == null) {
+      throw const AuthException('Missing Google authentication tokens');
+    }
+
+    return await authClient.signInWithIdToken(
+      provider: OAuthProvider.google,
+      idToken: idToken,
+      accessToken: accessToken,
+    );
   }
 }
