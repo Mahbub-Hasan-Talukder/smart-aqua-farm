@@ -7,7 +7,7 @@ import '../../logger/logger.dart';
 import 'firebase_options.dart';
 import 'firebase_setup.dart';
 
-class FirebaseSetupImp implements FirebaseSetup {
+class FirebaseSetupImp implements FirebaseCrashLyticsSetup {
   @override
   Future<void> init() async {
     try {

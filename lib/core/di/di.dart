@@ -1,10 +1,10 @@
 import 'package:get_it/get_it.dart';
 
+import '../../features/home/data/data/flutter_pytorch_imp.dart';
 import '../services/firebase_service/firebase_setup.dart';
 import '../services/firebase_service/firebase_setup_imp.dart';
 import '../../features/auth/presentation/cubits/auth/reset_password/reset_pass_cubit.dart';
 import '../../features/home/data/data/home_data_source.dart';
-import '../../features/home/data/data/home_data_source_imp.dart';
 import '../../features/home/data/repo_imp/home_repo_imp.dart';
 import '../../features/home/presentation/cubits/detection/detection_cubit.dart';
 import '../../features/library/data/data_source/library_data_source.dart';
@@ -49,7 +49,9 @@ void setupLocator() {
     () => SharedPreferenceService(),
   );
   getIt.registerLazySingleton<AuthService>(() => SupabaseImpl());
-  getIt.registerLazySingleton<FirebaseSetup>(() => FirebaseSetupImp());
+  getIt.registerLazySingleton<FirebaseCrashLyticsSetup>(
+    () => FirebaseSetupImp(),
+  );
 
   /// Register Cubits
   getIt.registerFactory(() => OnboardingCubit(getIt.call()));
@@ -108,11 +110,6 @@ void setupLocator() {
   getIt.registerLazySingleton<LibraryRepository>(
     () => LibraryRepoImp(getIt.call()),
   );
-  // getIt.registerLazySingleton<HomeRepository>(
-  //     () => HomeRepositoryImpl(getIt.call(), getIt.call()));
-  // getIt.registerLazySingleton<ProjectDetailsRepo>(
-  //     () => ProjectDetailsRepoImp(getIt.call()));
-  // getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepoImp(getIt.call()));
 
   /// Register DataSources
   getIt.registerLazySingleton<OnboardingLocalDataSource>(
@@ -123,6 +120,7 @@ void setupLocator() {
   );
   getIt.registerLazySingleton<AuthRemote>(() => AuthRemoteImpl());
   getIt.registerLazySingleton<AuthLocal>(() => AuthLocalImpl());
-  getIt.registerLazySingleton<HomeDataSource>(() => HomeDataSourceImp());
+  getIt.registerLazySingleton<HomeDataSource>(() => FlutterPytorchImp());
+
   getIt.registerLazySingleton<LibraryDataSource>(() => LibraryDataSourceImp());
 }

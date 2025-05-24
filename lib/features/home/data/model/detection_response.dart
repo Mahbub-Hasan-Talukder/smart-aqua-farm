@@ -15,8 +15,8 @@ class DetectionResponse extends BaseModel {
     'Viral diseases - White tail disease',
   ];
   DetectionResponse.fromJson(Map<String, dynamic> json) {
-    className = classLabels[json['prediction']['classIndex']];
-    probability = json['probability'];
+    className = classLabels[json['class_index']];
+    probability = json['confidence'];
   }
 
   @override

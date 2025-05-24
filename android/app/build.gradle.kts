@@ -1,28 +1,10 @@
 plugins {
     id("com.android.application")
-    // START: FlutterFire Configuration
-    id("com.google.gms.google-services")
-    // END: FlutterFire Configuration
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
-dependencies {
-    implementation("org.pytorch:pytorch_android:2.1.0")
-    implementation("org.pytorch:pytorch_android_torchvision:2.1.0")
-}
 
-android.packaging {
-    resources {
-        excludes.add("META-INF/*")
-    }
-    jniLibs {
-        useLegacyPackaging = true
-        pickFirsts.add("**/libpytorch_jni.so")
-        pickFirsts.add("**/libc++_shared.so")
-        pickFirsts.add("**/libfbjni.so")
-    }
-}
 android {
     namespace = "com.example.smart_aqua_farm"
     compileSdk = flutter.compileSdkVersion

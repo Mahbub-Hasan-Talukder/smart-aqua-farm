@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_aqua_farm/core/di/di.dart';
-import 'package:smart_aqua_farm/core/widgets/app_bar.dart';
-import 'package:smart_aqua_farm/features/library/presentation/cubits/dis_details/dis_details_cubit.dart';
+
+import '../../../../core/di/di.dart';
+import '../../../../core/widgets/app_bar.dart';
+import '../cubits/dis_details/dis_details_cubit.dart';
 
 class DisDetailsScreen extends StatefulWidget {
   const DisDetailsScreen({super.key, required this.diseaseName});

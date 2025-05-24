@@ -1,4 +1,4 @@
-abstract class FirebaseSetup {
+abstract class FirebaseCrashLyticsSetup {
   /// This method initializes Firebase with -
   /// * [FirebaseOptions] for the current platform.
   /// * Initializes Firebase Crashlytics for error reporting.

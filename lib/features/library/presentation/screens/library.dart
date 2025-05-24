@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_aqua_farm/core/di/di.dart';
-import 'package:smart_aqua_farm/features/library/domain/entity/disease_entity.dart';
-import 'package:smart_aqua_farm/features/library/presentation/cubits/fetch_dis/fetch_dis_cubit.dart';
+
+import '../../../../core/di/di.dart';
+import '../../domain/entity/disease_entity.dart';
+import '../cubits/fetch_dis/fetch_dis_cubit.dart';
 import '../../../../core/navigation/routes.dart';
 import '../../../../core/widgets/app_bar.dart';
 

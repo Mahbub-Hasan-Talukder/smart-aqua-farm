@@ -51,6 +51,7 @@ dependencies:
   firebase_core: ^3.13.1
   firebase_crashlytics: ^4.3.6
   firebase_analytics: ^11.4.6
+  pytorch_lite: ^4.3.2
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +80,7 @@ flutter:
     - .env
     - assets/images/
     - assets/gifs/
+    - assets/ai_models/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
