@@ -8,7 +8,7 @@ import '../../features/onboarding/presentation/screens/splash_screen.dart';
 import '../../features/auth/presentation/screens/forget_pass_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
 import '../../features/auth/presentation/screens/signin_screen.dart';
-import '../../features/dummy_screens/profile.dart';
+import '../../features/profile/presentation/screens/profile.dart';
 import 'error_page.dart';
 import 'nav_bar.dart';
 import 'routes.dart';

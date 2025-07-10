@@ -1,0 +1,21 @@
+{
+  "hello_world": "হ্যালো বিশ্ব",
+  "@hello_world": {},
+
+    "greeting": "{name}, হ্যালো!",
+    "@greeting": {
+        "description": "একটি অভিবাদন বার্তা যা একটি ব্যক্তির নাম অন্তর্ভুক্ত করে।",
+        "placeholders": {
+            "name": {
+                "type": "String",
+                "example": "অ্যালিস"
+            }
+        }
+    },
+
+    "dark_mode": "ডার্ক মোড",
+    "@dark_mode": {},
+
+    "light_mode": "লাইট মোড",
+    "@light_mode": {}
+}

@@ -1,0 +1,21 @@
+{
+    "hello_world": "Hello, World!",
+    "@hello_world": {},
+
+    "greeting": "Welcome, {name}!",
+    "@greeting": {
+        "description": "A greeting message that includes a person's name.",
+        "placeholders": {
+            "name": {
+                "type": "String",
+                "example": "Alice"
+            }
+        }
+    },
+
+    "dark_mode": "Dark Mode",
+    "@dark_mode": {},
+
+    "light_mode": "Light Mode",
+    "@light_mode": {}
+}

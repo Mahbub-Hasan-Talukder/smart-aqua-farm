@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _showError("Error selecting image: ${e.toString()}");
       }
     } else {
-      await _detectDiseases(_imageHandler.value!);
+      await _detectDiseases(_imageHandler.value);
     }
   }
 

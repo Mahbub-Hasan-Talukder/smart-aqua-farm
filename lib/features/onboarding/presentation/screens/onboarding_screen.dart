@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/localization/l10n/app_localizations.dart';
 import '../../../../core/widgets/alerts.dart';
 import '../../../../core/widgets/app_bar.dart';
 import '../../../../core/di/di.dart';
@@ -32,7 +33,9 @@ class _OnboardingViewState extends State<OnboardingView> {
   Widget build(BuildContext context) {
     final items = OnboardingItems.getItem(context);
     return Scaffold(
-      appBar: CommonAppBar(title: 'Welcome').build(context),
+      appBar: CommonAppBar(
+        title: AppLocalizations.of(context).greeting(''),
+      ).build(context),
       bottomSheet: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
         child:
@@ -41,6 +44,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                 : OnboardingNav(pageController: pageController, items: items),
       ),
       body: Container(
+        height: MediaQuery.sizeOf(context).height * .7,
         margin: const EdgeInsets.symmetric(horizontal: 15),
         child: PageView.builder(
           onPageChanged:

@@ -1,35 +1,55 @@
+import '../../../../../core/services/local/hive_services.dart';
 import '../../../../../core/di/di.dart';
-import '../../../../../core/services/local/shared_preference_services.dart';
 import 'auth_local.dart';
 
 class AuthLocalImpl implements AuthLocal {
   @override
   Future<String> getUserEmail() async {
-    final localAgent = getIt<SharedPreferenceService>();
-    final userEmail = await localAgent.getString('email');
+    final localAgent = getIt<HiveServices>();
+    final userEmail = await localAgent.getValue<String>(
+      key: 'email',
+      boxName: HiveServices.authBox,
+    );
     return userEmail ?? 'No email found';
   }
 
   @override
   Future<String> getUserId() async {
-    final localAgent = getIt<SharedPreferenceService>();
-    final userId = await localAgent.getString('userId');
+    final localAgent = getIt<HiveServices>();
+    final userId = await localAgent.getValue<String>(
+      key: 'userId',
+      boxName: HiveServices.authBox,
+    );
     return userId ?? 'No id found';
   }
 
   @override
   Future<String> getUserName() async {
-    final localAgent = getIt<SharedPreferenceService>();
-    final userName = await localAgent.getString('userName');
+    final localAgent = getIt<HiveServices>();
+    final userName = await localAgent.getValue<String>(
+      key: 'userName',
+      boxName: HiveServices.authBox,
+    );
     return userName ?? 'No name found';
   }
 
   @override
   Future<void> saveUser(Map<String, dynamic> user) async {
-    final localAgent = getIt<SharedPreferenceService>();
-    await localAgent.clear();
-    await localAgent.setString('userName', user['name']);
-    await localAgent.setString('userEmail', user['email']);
-    await localAgent.setString('userId', user['id']);
+    final localAgent = getIt<HiveServices>();
+    await localAgent.setValue(
+      key: 'userName',
+      value: user['name'],
+      boxName: HiveServices.authBox,
+    );
+    await localAgent.setValue(
+      key: 'userEmail',
+      value: user['email'],
+      boxName: HiveServices.authBox,
+    );
+    await localAgent.setValue(
+      key: 'userId',
+      value: user['id'],
+      boxName: HiveServices.authBox,
+    );
   }
 }

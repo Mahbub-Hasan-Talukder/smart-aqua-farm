@@ -1,6 +1,13 @@
 import 'package:get_it/get_it.dart';
 
+import '../../features/profile/data/data_source/remote/profile_remote_source.dart';
+import '../../features/profile/data/data_source/remote/profile_remote_source_imp.dart';
+import '../../features/profile/data/repository_impl/profile_repo_imp.dart';
+import '../../features/profile/domain/repository/profile_repository.dart';
 import '../../features/home/data/data/flutter_pytorch_imp.dart';
+import '../../features/profile/domain/use_case/profile_use_cases.dart';
+import '../../features/profile/presentation/bloc/cubits/edit_profile/edit_profile_cubit.dart';
+import '../../features/profile/presentation/bloc/cubits/fetch_profile/fetch_profile_cubit.dart';
 import '../services/firebase_service/firebase_setup.dart';
 import '../services/firebase_service/firebase_setup_imp.dart';
 import '../../features/auth/presentation/cubits/auth/reset_password/reset_pass_cubit.dart';
@@ -39,15 +46,13 @@ import '../../features/onboarding/domain/repository/onboarding_repository.dart';
 import '../../features/onboarding/domain/use_case/onboarding_use_case.dart';
 import '../base/cubit/base_cubit.dart';
 import '../base/cubit/base_state.dart';
-import '../services/local/shared_preference_services.dart';
+import '../services/local/hive_services.dart';
 
 final GetIt getIt = GetIt.instance;
 
 void setupLocator() {
   getIt.registerLazySingleton<BaseCubit>(() => BaseCubit(BaseState()));
-  getIt.registerLazySingleton<SharedPreferenceService>(
-    () => SharedPreferenceService(),
-  );
+  getIt.registerLazySingleton<HiveServices>(() => HiveServices());
   getIt.registerLazySingleton<AuthService>(() => SupabaseImpl());
   getIt.registerLazySingleton<FirebaseCrashLyticsSetup>(
     () => FirebaseSetupImp(),
@@ -69,10 +74,12 @@ void setupLocator() {
   getIt.registerFactory<DetectionCubit>(() => DetectionCubit(getIt.call()));
   getIt.registerFactory<DisDetailsCubit>(() => DisDetailsCubit(getIt.call()));
   getIt.registerFactory<FetchDisCubit>(() => FetchDisCubit(getIt.call()));
-  // getIt.registerFactory<ProfileFetchCubit>(
-  //     () => ProfileFetchCubit(getIt.call(), getIt.call()));
+  getIt.registerFactory<FetchProfileCubit>(
+    () => FetchProfileCubit(getIt.call()),
+  );
+  getIt.registerFactory<EditProfileCubit>(() => EditProfileCubit(getIt.call()));
 
-  // ///Register UseCases
+  //Register UseCases
   getIt.registerLazySingleton<OnboardingUseCase>(
     () => OnboardingUseCase(getIt.call()),
   );
@@ -94,10 +101,12 @@ void setupLocator() {
     () => FetchDisUseCase(getIt.call()),
   );
   getIt.registerLazySingleton<DisDetUseCase>(() => DisDetUseCase(getIt.call()));
-  // getIt.registerLazySingleton<ProfileFetchUseCase>(
-  //     () => ProfileFetchUseCase(getIt.call()));
-  // getIt.registerLazySingleton<UpdateProfileUseCase>(
-  //     () => UpdateProfileUseCase(getIt.call()));
+  getIt.registerLazySingleton<FetchProfileUseCase>(
+    () => FetchProfileUseCase(getIt.call()),
+  );
+  getIt.registerLazySingleton<EditProfileUseCase>(
+    () => EditProfileUseCase(getIt.call()),
+  );
 
   /// Register Repositories
   getIt.registerLazySingleton<OnboardingRepository>(
@@ -110,6 +119,9 @@ void setupLocator() {
   getIt.registerLazySingleton<LibraryRepository>(
     () => LibraryRepoImp(getIt.call()),
   );
+  getIt.registerLazySingleton<ProfileRepository>(
+    () => ProfileRepoImp(getIt.call()),
+  );
 
   /// Register DataSources
   getIt.registerLazySingleton<OnboardingLocalDataSource>(
@@ -121,6 +133,8 @@ void setupLocator() {
   getIt.registerLazySingleton<AuthRemote>(() => AuthRemoteImpl());
   getIt.registerLazySingleton<AuthLocal>(() => AuthLocalImpl());
   getIt.registerLazySingleton<HomeDataSource>(() => FlutterPytorchImp());
-
   getIt.registerLazySingleton<LibraryDataSource>(() => LibraryDataSourceImp());
+  getIt.registerLazySingleton<ProfileRemoteSource>(
+    () => ProfileRemoteSourceImp(),
+  );
 }
